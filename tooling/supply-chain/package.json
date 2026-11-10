@@ -1,0 +1,16 @@
+{
+  "name": "@nuk-ui/supply-chain",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic local CycloneDX SBOM tooling for the nuk workspace.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node --check generate-sbom.mjs && node --check sbom-lib.mjs",
+    "test": "node --test test/*.test.mjs",
+    "typecheck": "node --check generate-sbom.mjs && node --check sbom-lib.mjs"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "../schemas/intake-record.v1.schema.json",
+  "schemaVersion": "1.0.0",
+  "requestId": "forge-poc-dismissible-alert-v1",
+  "componentId": "nuk-dismissible-alert",
+  "recordedAt": "2026-11-01T12:00:00.000Z",
+  "recordedBy": "nuk component-system project",
+  "cleanRoomDeclaration": {
+    "implementationSourceInspected": false,
+    "sourceMapsInspected": false,
+    "decompiledArtifactsInspected": false,
+    "copiedCodeOrStyles": false
+  },
+  "sources": [
+    {
+      "id": "first-party-alert-brief",
+      "title": "nuk dismissible alert behavior brief",
+      "uri": "repo://packages/forge/specs/nuk-dismissible-alert.v1.json",
+      "sourceKind": "first-party-specification",
+      "licenseExpression": "MIT",
+      "materialKinds": ["authored-behavior-requirements"],
+      "factsUsed": [
+        "A user may dismiss a visible status message.",
+        "Resetting the component restores its visible state."
+      ],
+      "excerptsCopied": false
+    },
+    {
+      "id": "w3c-aria-alert-pattern",
+      "title": "WAI-ARIA Authoring Practices alert pattern",
+      "uri": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/",
+      "sourceKind": "public-accessibility-guidance",
+      "licenseExpression": "W3C-20150513",
+      "materialKinds": ["public-behavior-documentation"],
+      "factsUsed": [
+        "Urgent, time-sensitive messages may use the alert role.",
+        "Dynamically displayed alert content is announced without moving focus."
+      ],
+      "excerptsCopied": false
+    },
+    {
+      "id": "mdn-button-reference",
+      "title": "MDN button element reference",
+      "uri": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button",
+      "sourceKind": "public-api-documentation",
+      "licenseExpression": "CC-BY-SA-2.5",
+      "materialKinds": ["public-behavior-documentation"],
+      "factsUsed": [
+        "A native button supplies keyboard activation behavior.",
+        "A button without visible text requires an accessible name."
+      ],
+      "excerptsCopied": false
+    }
+  ]
+}

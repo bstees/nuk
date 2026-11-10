@@ -1,0 +1,52 @@
+---
+const navigation = [
+  { href: '/archive/', label: 'Archive' },
+  { href: '/topics/', label: 'Topics' },
+  { href: '/sources/', label: 'Sources' },
+  { href: '/about/', label: 'Method' },
+];
+---
+
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="wordmark" href="/" aria-label="Signal / Interface home">
+      <span>Signal</span>
+      <i aria-hidden="true">/</i>
+      <span>Interface</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        {navigation.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Use dark color theme" aria-pressed="false">
+      <span class="theme-toggle__label">Dark</span>
+      <span class="theme-toggle__mark" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const storageKey = 'signal-interface-theme';
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const label = button?.querySelector<HTMLElement>('.theme-toggle__label');
+
+  function applyTheme(theme: 'dark' | 'light' | null) {
+    if (theme === null) delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = theme;
+    const dark = theme === 'dark' ||
+      (theme === null && matchMedia('(prefers-color-scheme: dark)').matches);
+    button?.setAttribute('aria-pressed', String(dark));
+    button?.setAttribute('aria-label', dark ? 'Use light color theme' : 'Use dark color theme');
+    if (label) label.textContent = dark ? 'Light' : 'Dark';
+  }
+
+  const saved = localStorage.getItem(storageKey);
+  applyTheme(saved === 'dark' || saved === 'light' ? saved : null);
+  button?.addEventListener('click', () => {
+    const next = button.getAttribute('aria-pressed') === 'true' ? 'light' : 'dark';
+    localStorage.setItem(storageKey, next);
+    applyTheme(next);
+  });
+</script>

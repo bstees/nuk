@@ -1,0 +1,46 @@
+{
+  "name": "@nuk-ui/component-system-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Semantic custom elements, typed React adapters, documentation, and an editorial UI/UX digest.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=11.0.0"
+  },
+  "scripts": {
+    "build": "pnpm --recursive --if-present build",
+    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm typecheck && pnpm test && pnpm packages:verify",
+    "clean": "pnpm --recursive --if-present clean",
+    "dev:digest": "pnpm --filter @nuk-ui/digest dev",
+    "dev:storybook": "pnpm --filter @nuk-ui/storybook dev",
+    "digest:build": "pnpm --filter @nuk-ui/digest... build",
+    "digest:fixture": "pnpm --filter @nuk-ui/editorial generate:fixture",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "forge:proof": "pnpm --filter @nuk-ui/forge proof",
+    "lint": "eslint . --max-warnings=0",
+    "packages:verify": "pnpm --filter @nuk-ui/elements verify && pnpm --filter @nuk-ui/react verify",
+    "sbom:generate": "node tooling/supply-chain/generate-sbom.mjs",
+    "storybook:build": "pnpm --filter @nuk-ui/storybook... build",
+    "test": "pnpm --recursive --if-present test",
+    "test:browser": "playwright test",
+    "test:browser:chromium": "playwright test --project=chromium",
+    "typecheck": "tsc -p tsconfig.json && pnpm --recursive --if-present typecheck"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@changesets/cli": "3.0.3",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.6",
+    "eslint": "10.1.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.14.0",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1"
+  }
+}

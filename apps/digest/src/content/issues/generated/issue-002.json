@@ -1,0 +1,89 @@
+{
+  "dek": "A review draft of useful interface, accessibility, web-platform, and applied-AI work.",
+  "entries": [
+    {
+      "canonicalUrl": "https://fixtures.example.test/container-aware-components",
+      "citations": [
+        {
+          "label": "Fixture Platform Notes: Container-aware components without viewport assumptions",
+          "url": "https://fixtures.example.test/container-aware-components"
+        }
+      ],
+      "id": "399dda1a6c9a9623",
+      "publishedAt": "2026-10-29T15:00:00.000Z",
+      "quotes": [],
+      "reviewFlags": [
+        "deterministic-fallback",
+        "human-summary-required"
+      ],
+      "source": "Fixture Platform Notes",
+      "summary": "Fixture Platform Notes presents an update centered on components, assumptions, cards, container. This deterministic draft uses only source metadata and must be edited and evidence-checked before approval.",
+      "title": "Container-aware components without viewport assumptions",
+      "topics": [
+        "accessibility",
+        "css",
+        "design-systems",
+        "tools"
+      ]
+    },
+    {
+      "canonicalUrl": "https://fixtures.example.test/accessible-names",
+      "citations": [
+        {
+          "label": "Fixture Platform Notes: Testing accessible names across native controls",
+          "url": "https://fixtures.example.test/accessible-names"
+        }
+      ],
+      "id": "4f6e1eef66333c3c",
+      "publishedAt": "2026-10-27T10:30:00.000Z",
+      "quotes": [],
+      "reviewFlags": [
+        "deterministic-fallback",
+        "human-summary-required"
+      ],
+      "source": "Fixture Platform Notes",
+      "summary": "Fixture Platform Notes presents an update centered on controls, accessible, across, computation. This deterministic draft uses only source metadata and must be edited and evidence-checked before approval.",
+      "title": "Testing accessible names across native controls",
+      "topics": [
+        "accessibility",
+        "css",
+        "design-systems",
+        "tools"
+      ]
+    },
+    {
+      "canonicalUrl": "https://fixtures.example.test/forced-colors",
+      "citations": [
+        {
+          "label": "Fixture Platform Notes: Forced colors as a first-class design constraint",
+          "url": "https://fixtures.example.test/forced-colors"
+        }
+      ],
+      "id": "3ae8bf2de9f010ac",
+      "publishedAt": "2026-10-25T08:00:00.000Z",
+      "quotes": [],
+      "reviewFlags": [
+        "deterministic-fallback",
+        "human-summary-required"
+      ],
+      "source": "Fixture Platform Notes",
+      "summary": "Fixture Platform Notes presents an update centered on colors, authored, boundaries, constraint. This deterministic draft uses only source metadata and must be edited and evidence-checked before approval.",
+      "title": "Forced colors as a first-class design constraint",
+      "topics": [
+        "accessibility",
+        "css",
+        "design-systems",
+        "tools"
+      ]
+    }
+  ],
+  "generatedAt": "2026-10-30T12:00:00.000Z",
+  "issueNumber": 2,
+  "promptVersion": "editorial-summary.v1",
+  "publishedAt": "2026-10-30T12:00:00.000Z",
+  "reviewStatus": "draft",
+  "schemaVersion": 1,
+  "slug": "issue-002",
+  "sourceManifestVersion": "sources.v1",
+  "title": "Signal / Interface — Issue 002"
+}

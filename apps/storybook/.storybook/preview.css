@@ -1,0 +1,104 @@
+@layer nuk.storybook {
+  html,
+  body,
+  #storybook-root {
+    min-block-size: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  .nuk-story-surface {
+    background: var(--nuk-color-canvas);
+    color: var(--nuk-color-text);
+    font-family: var(--nuk-font-sans);
+    min-block-size: 100vb;
+    padding: clamp(1rem, 3cqi, 3rem);
+  }
+
+  .nuk-story-container {
+    container-name: story;
+    container-type: inline-size;
+    inline-size: 100%;
+    margin-inline: auto;
+  }
+
+  .story-stack {
+    display: grid;
+    gap: var(--nuk-space-5);
+  }
+
+  .story-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nuk-space-3);
+  }
+
+  .story-section {
+    background: var(--nuk-color-surface);
+    border: var(--nuk-border-width) solid var(--nuk-color-border);
+    border-radius: var(--nuk-radius-lg);
+    display: grid;
+    gap: var(--nuk-space-4);
+    padding: clamp(1rem, 4cqi, 2rem);
+  }
+
+  .story-section h2,
+  .story-section h3,
+  .story-section p {
+    margin: 0;
+  }
+
+  .story-section p {
+    color: var(--nuk-color-text-muted);
+    line-height: var(--nuk-line-height-body);
+    max-inline-size: 65ch;
+  }
+
+  .token-grid {
+    display: grid;
+    gap: var(--nuk-space-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  }
+
+  .token-swatch {
+    background: var(--swatch);
+    border: var(--nuk-border-width) solid var(--nuk-color-border);
+    border-radius: var(--nuk-radius-md);
+    block-size: 5rem;
+  }
+
+  .token-card {
+    display: grid;
+    gap: var(--nuk-space-2);
+  }
+
+  .token-card code {
+    font-family: var(--nuk-font-mono);
+    font-size: var(--nuk-font-size-sm);
+  }
+
+  .semantic-table {
+    border-collapse: collapse;
+    min-inline-size: 34rem;
+  }
+
+  .semantic-table th,
+  .semantic-table td {
+    border-block-end: var(--nuk-border-width) solid var(--nuk-color-border);
+    padding: 0.75em 1em;
+    text-align: start;
+  }
+
+  .semantic-table th {
+    background: var(--nuk-color-surface);
+  }
+
+  @media (forced-colors: active) {
+    .story-section {
+      border-color: CanvasText;
+    }
+  }
+}

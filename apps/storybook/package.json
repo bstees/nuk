@@ -1,0 +1,32 @@
+{
+  "name": "@nuk-ui/storybook",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local documentation and review surface for the nuk component system.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "storybook build --output-dir storybook-static",
+    "clean": "node scripts/clean.mjs",
+    "dev": "storybook dev --port 6006 --no-open",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@nuk-ui/elements": "workspace:*",
+    "@nuk-ui/react": "workspace:*",
+    "@nuk-ui/theme": "workspace:*",
+    "@nuk-ui/tokens": "workspace:*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "10.6.5",
+    "@storybook/addon-docs": "10.6.5",
+    "@storybook/react-vite": "10.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "storybook": "10.6.5",
+    "typescript": "6.0.3",
+    "vite": "8.3.5"
+  }
+}

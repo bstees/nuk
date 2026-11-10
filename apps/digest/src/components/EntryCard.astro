@@ -1,0 +1,35 @@
+---
+import type { DigestEntry } from '@nuk-ui/editorial';
+import { displayDate, topicLabel } from '../lib/content';
+
+interface Props {
+  entry: DigestEntry;
+  number?: number;
+  compact?: boolean;
+}
+
+const { entry, number, compact = false } = Astro.props;
+---
+
+<article class:list={['entry-card', { 'entry-card--compact': compact }]}>
+  <div class="entry-card__index" aria-hidden="true">{number ? String(number).padStart(2, '0') : '↗'}</div>
+  <div class="entry-card__body">
+    <div class="entry-card__meta">
+      <span>{entry.source}</span>
+      <time datetime={entry.publishedAt}>{displayDate(entry.publishedAt)}</time>
+    </div>
+    <h2><a href={entry.canonicalUrl} rel="external">{entry.title}<span class="external" aria-hidden="true">↗</span></a></h2>
+    <p>{entry.summary}</p>
+    <div class="entry-card__footer">
+      <ul class="topic-list" aria-label="Topics">
+        {entry.topics.map((topic) => <li><a href={`/topic/${topic}/`}>{topicLabel(topic)}</a></li>)}
+      </ul>
+      <details class="citations">
+        <summary>{entry.citations.length} {entry.citations.length === 1 ? 'source' : 'sources'}</summary>
+        <ul>
+          {entry.citations.map((citation) => <li><a href={citation.url} rel="external">{citation.label}</a></li>)}
+        </ul>
+      </details>
+    </div>
+  </div>
+</article>

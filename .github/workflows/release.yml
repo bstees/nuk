@@ -1,0 +1,93 @@
+name: Release candidate packaging
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Commit or tag to package. No package is published.
+        required: true
+        default: main
+        type: string
+      candidate_label:
+        description: Human-readable candidate identifier for the manifest.
+        required: true
+        default: 0.1.0-candidate
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Build and pack without publishing
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+      CANDIDATE_LABEL: ${{ inputs.candidate_label }}
+    steps:
+      - name: Check out the selected revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.source_ref }}
+
+      - name: Record the resolved source commit
+        shell: bash
+        run: echo "SOURCE_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+
+      - name: Enable the repository package manager
+        run: corepack enable pnpm
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify and build packages
+        run: |
+          pnpm build
+          pnpm packages:verify
+
+      - name: Pack public packages into an isolated directory
+        shell: bash
+        run: |
+          mkdir -p artifacts/packages
+          for package in elements react theme tokens; do
+            pnpm --filter "@nuk-ui/$package" pack --pack-destination "$GITHUB_WORKSPACE/artifacts/packages"
+          done
+
+      - name: Generate the candidate SBOM and checksums
+        shell: bash
+        run: |
+          pnpm sbom:generate
+          cp outputs/sbom.cdx.json artifacts/sbom.cdx.json
+          sha256sum artifacts/packages/*.tgz artifacts/sbom.cdx.json | sort -k2 > artifacts/SHA256SUMS
+
+      - name: Write the non-publishing release manifest
+        run: |
+          node <<'NODE'
+          const { readFileSync, writeFileSync } = require('node:fs');
+          const files = readFileSync('artifacts/SHA256SUMS', 'utf8').trim().split('\n').map((line) => {
+            const [sha256, path] = line.split(/\s{2,}/);
+            return { path, sha256 };
+          });
+          writeFileSync('artifacts/release-candidate.json', `${JSON.stringify({
+            schemaVersion: 1,
+            label: process.env.CANDIDATE_LABEL,
+            sourceCommit: process.env.SOURCE_COMMIT,
+            workflowRun: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            published: false,
+            files,
+          }, null, 2)}\n`);
+          NODE
+
+      - name: Upload the candidate for human inspection
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-candidate-${{ github.run_id }}
+          path: artifacts
+          if-no-files-found: error
+          retention-days: 30

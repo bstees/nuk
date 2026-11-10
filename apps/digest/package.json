@@ -1,0 +1,26 @@
+{
+  "name": "@nuk-ui/digest",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Signal / Interface — a static, review-gated UI/UX and applied-AI digest.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "astro check && astro build",
+    "clean": "rm -rf .astro dist",
+    "dev": "astro dev --host 127.0.0.1",
+    "preview": "astro preview --host 127.0.0.1",
+    "test": "vitest run --coverage.enabled=false",
+    "typecheck": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/rss": "4.0.19",
+    "@nuk-ui/editorial": "workspace:*",
+    "astro": "7.4.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  }
+}

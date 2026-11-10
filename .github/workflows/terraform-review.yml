@@ -1,0 +1,54 @@
+name: Terraform offline review
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'infra/terraform/**'
+      - '.github/workflows/terraform-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'infra/terraform/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Format, validate, and mocked-test (never plan or apply)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      AWS_EC2_METADATA_DISABLED: 'true'
+      TF_IN_AUTOMATION: 'true'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+        with:
+          terraform_version: 1.10.5
+          terraform_wrapper: false
+
+      - name: Check formatting
+        run: terraform fmt -check -recursive infra/terraform
+
+      - name: Initialize modules without a remote backend
+        run: terraform -chdir=infra/terraform init -backend=false -input=false -lockfile=readonly
+
+      - name: Validate the hosting configuration
+        run: terraform -chdir=infra/terraform validate -no-color
+
+      - name: Run mocked configuration tests
+        run: terraform -chdir=infra/terraform test -no-color
+
+      - name: Initialize the state bootstrap without a backend
+        run:
+          terraform -chdir=infra/terraform/bootstrap init -backend=false -input=false
+          -lockfile=readonly
+
+      - name: Validate the state bootstrap
+        run: terraform -chdir=infra/terraform/bootstrap validate -no-color

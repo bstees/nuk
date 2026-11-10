@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nuk-ui:forge:source-policy:v1",
+  "title": "Clean-room source policy v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "policyVersion",
+    "defaultDecision",
+    "allowedSourceKinds",
+    "allowedLicenseExpressions",
+    "allowedUriSchemes",
+    "allowedHttpsHosts",
+    "deniedMaterialKinds",
+    "requiredDeclarations"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "policyVersion": { "const": "1.0.0" },
+    "defaultDecision": { "const": "deny" },
+    "allowedSourceKinds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "allowedLicenseExpressions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "allowedUriSchemes": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "allowedHttpsHosts": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "deniedMaterialKinds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "requiredDeclarations": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "requestId": "fixture-allowed",
+  "componentId": "nuk-fixture",
+  "recordedAt": "2026-11-01T12:00:00.000Z",
+  "recordedBy": "fixture",
+  "cleanRoomDeclaration": {
+    "implementationSourceInspected": false,
+    "sourceMapsInspected": false,
+    "decompiledArtifactsInspected": false,
+    "copiedCodeOrStyles": false
+  },
+  "sources": [
+    {
+      "id": "fixture-spec",
+      "title": "Fixture specification",
+      "uri": "repo://packages/forge/fixtures/intake/allowed.json",
+      "sourceKind": "first-party-specification",
+      "licenseExpression": "MIT",
+      "materialKinds": ["authored-behavior-requirements"],
+      "factsUsed": ["Fixture behavior"],
+      "excerptsCopied": false
+    }
+  ]
+}

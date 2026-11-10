@@ -1,0 +1,117 @@
+name: Weekly digest draft
+
+on:
+  schedule:
+    - cron: '17 12 * * 1'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Use deterministic fixtures unless intentionally testing the curated live feeds.
+        required: true
+        default: fixture
+        type: choice
+        options:
+          - fixture
+          - network
+
+concurrency:
+  group: weekly-digest-draft
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft:
+    name: Generate a review-only issue and open a draft PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CI: 'true'
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+
+      - name: Enable the repository package manager
+        run: corepack enable pnpm
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare the generated-content boundary
+        run: mkdir -p apps/digest/src/content/issues/generated
+
+      - name: Gather the versioned curated feeds
+        if: ${{ github.event_name == 'schedule' || inputs.mode == 'network' }}
+        env:
+          ALLOW_DIGEST_NETWORK: '1'
+        run: pnpm --filter @nuk-ui/editorial generate:weekly
+
+      - name: Generate the deterministic offline fixture
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'fixture' }}
+        run: pnpm digest:fixture
+
+      - name: Validate editorial rules
+        run: pnpm --filter @nuk-ui/editorial test
+
+      - name: Stage only generated issue records
+        id: changes
+        shell: bash
+        run: |
+          git add -- 'apps/digest/src/content/issues/generated/*.json'
+          if git diff --cached --quiet; then
+            echo "created=false" >> "$GITHUB_OUTPUT"
+            echo "No new draft was generated."
+          else
+            echo "created=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push an isolated automation branch
+        if: ${{ steps.changes.outputs.created == 'true' }}
+        id: branch
+        shell: bash
+        run: |
+          branch="automation/digest-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git commit -m "content: add weekly digest review draft"
+          git push origin "HEAD:$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open a draft pull request
+        if: ${{ steps.changes.outputs.created == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          body_file="$RUNNER_TEMP/digest-pr-body.md"
+          node - "$body_file" <<'NODE'
+          const { writeFileSync } = require('node:fs');
+          const body = [
+            '## Automated review draft',
+            '',
+            'This pull request is deliberately a **draft**. It cannot approve or publish an issue.',
+            '',
+            'Before marking it ready, a human editor must open every canonical source, verify dates and claims, rewrite deterministic fallback summaries, check citations and quotation limits, clear review flags, and explicitly change `reviewStatus` to `approved`.',
+            '',
+            'Merging only makes approved source eligible for a later static build. This repository has no automatic production deployment.',
+            '',
+          ].join('\n');
+          writeFileSync(process.argv[2], body);
+          NODE
+          gh pr create \
+            --base main \
+            --head "$HEAD_BRANCH" \
+            --draft \
+            --title "content: weekly digest review draft" \
+            --body-file "$body_file"

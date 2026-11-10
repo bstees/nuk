@@ -1,0 +1,13 @@
+environment        = "production"
+aws_region         = "us-east-2"
+docs_domain_name   = "components.example.com"
+digest_domain_name = "digest.example.com"
+github_repository  = "OWNER/REPOSITORY"
+github_environment = "production"
+
+# Change to true only after both ACM certificates report ISSUED.
+enable_cloudfront = false
+
+# Uncomment only when the recipient is ready to confirm the SNS subscription.
+alert_email        = null
+monthly_budget_usd = 15

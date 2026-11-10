@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "slug": "issue-001",
+  "issueNumber": 1,
+  "title": "Signal / Interface — Issue 001",
+  "dek": "Native controls get more expressive, accessibility guidance keeps evolving, and generated interfaces raise useful questions about restraint.",
+  "publishedAt": "2026-10-30T12:00:00.000Z",
+  "generatedAt": "2026-10-30T12:00:00.000Z",
+  "reviewStatus": "approved",
+  "promptVersion": "manual-editorial.v1",
+  "sourceManifestVersion": "sources.v1",
+  "entries": [
+    {
+      "id": "webkit-select-2026",
+      "title": "Customizable select moves without abandoning the control",
+      "summary": "WebKit’s Safari 27.2 notes show the customizable select work being refined through platform primitives: a pseudo-element for selected text, safer picker alignment, and interoperable default styling. The useful direction is not “replace the select.” It is giving the native control enough expressive range that teams can keep its input, keyboard, and form behavior.",
+      "canonicalUrl": "https://webkit.org/blog/18515/webkit-features-for-safari-27-2/",
+      "source": "WebKit Blog",
+      "publishedAt": "2026-10-26T12:00:00.000Z",
+      "topics": ["accessibility", "css", "design-systems"],
+      "citations": [
+        {
+          "label": "WebKit: Features for Safari 27.2",
+          "url": "https://webkit.org/blog/18515/webkit-features-for-safari-27-2/"
+        }
+      ],
+      "quotes": [],
+      "reviewFlags": []
+    },
+    {
+      "id": "wcag3-working-draft-2026",
+      "title": "Treat WCAG 3 as an invitation to review—not a replacement checklist",
+      "summary": "The September 2026 WCAG 3 Working Draft broadens the accessibility conversation across static, dynamic, immersive, and streaming experiences. It is still a draft. Product teams can contribute feedback and learn from its direction, while continuing to use WCAG 2.2 as the conformance target for current work.",
+      "canonicalUrl": "https://www.w3.org/TR/wcag3/",
+      "source": "W3C Web Accessibility Initiative",
+      "publishedAt": "2026-09-10T12:00:00.000Z",
+      "topics": ["accessibility", "research"],
+      "citations": [
+        {
+          "label": "W3C Working Draft: WCAG 3.0",
+          "url": "https://www.w3.org/TR/wcag3/"
+        },
+        {
+          "label": "W3C WAI: WCAG 3 introduction",
+          "url": "https://www.w3.org/WAI/standards-guidelines/wcag/wcag3-intro/"
+        }
+      ],
+      "quotes": [],
+      "reviewFlags": []
+    },
+    {
+      "id": "openai-intelligent-ui-2026",
+      "title": "Generated interfaces still need a grammar",
+      "summary": "OpenAI describes Intelligent UI as model-composed combinations of text, controls, graphics, and tools, backed by a component library and a streaming compiler. The design-system lesson is broader than any one product: generation gets more legible when the model’s freedom is bounded by well-tested components, clear selection criteria, and a willingness to return plain text.",
+      "canonicalUrl": "https://openai.com/index/gpt-6-for-everyone/",
+      "source": "OpenAI",
+      "publishedAt": "2026-10-07T12:00:00.000Z",
+      "topics": ["ai", "design-systems", "tools"],
+      "citations": [
+        {
+          "label": "OpenAI: GPT-6 and Intelligent UI for everyone",
+          "url": "https://openai.com/index/gpt-6-for-everyone/"
+        }
+      ],
+      "quotes": [],
+      "reviewFlags": []
+    },
+    {
+      "id": "model-spec-agency-2026",
+      "title": "Human agency belongs in the interface contract",
+      "summary": "OpenAI’s updated Model Spec organizes guidance around intent, harm reduction, transparency, agency, and care. Interface teams working with agents can turn those abstractions into concrete affordances: visible scope, reversible actions, confirmation at consequential boundaries, source disclosure, and a clear route for correction.",
+      "canonicalUrl": "https://openai.com/index/updated-model-spec/",
+      "source": "OpenAI",
+      "publishedAt": "2026-10-29T12:00:00.000Z",
+      "topics": ["ai", "research", "tools"],
+      "citations": [
+        {
+          "label": "OpenAI: An updated Model Spec",
+          "url": "https://openai.com/index/updated-model-spec/"
+        }
+      ],
+      "quotes": [],
+      "reviewFlags": []
+    }
+  ]
+}

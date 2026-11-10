@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Welcome/Start here" />
+
+# nuk
+
+`nuk` is a clean-room component system built around semantic HTML, native browser behavior,
+accessible defaults, and small typed adapters. Its default custom-element namespace is `nuk-`.
+Applications can choose a different prefix at registration time without rebuilding the library.
+
+## What to review
+
+- Use the toolbar to switch between system, light, and dark color modes.
+- Change the story container between 20, 42, and 72 rem to inspect reflow without viewport
+  breakpoints.
+- Open the accessibility panel on every component story; violations fail automated Storybook checks.
+- Try the examples with a keyboard. Native elements are preferred wherever they can provide the
+  behavior.
+
+## Package boundaries
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Package</th>
+      <th scope="col">Responsibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+        <code>@nuk-ui/elements</code>
+      </th>
+      <td>Standards-based custom elements and structural styles</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <code>@nuk-ui/react</code>
+      </th>
+      <td>Typed React adapters and prefix configuration</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <code>@nuk-ui/tokens</code>
+      </th>
+      <td>Framework-neutral design primitives</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <code>@nuk-ui/theme</code>
+      </th>
+      <td>Optional semantic light/dark theme</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <code>@nuk-ui/forge</code>
+      </th>
+      <td>Governed clean-room component translation workflow</td>
+    </tr>
+  </tbody>
+</table>
+
+The examples are documentation, not a separate implementation: each story renders the packages that
+consumers install.

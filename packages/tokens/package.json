@@ -1,0 +1,26 @@
+{
+  "name": "@nuk-ui/tokens",
+  "version": "0.1.0",
+  "description": "Framework-neutral design primitives for the nuk component system.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./css": "./dist/tokens.css"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-css.mjs",
+    "clean": "node scripts/clean.mjs",
+    "typecheck": "tsc -p tsconfig.json"
+  }
+}

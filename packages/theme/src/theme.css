@@ -1,0 +1,96 @@
+@import '@nuk-ui/tokens/css' layer(nuk.tokens);
+
+@layer nuk.theme {
+  :root,
+  :host,
+  [data-nuk-theme='light'] {
+    color-scheme: light;
+    --nuk-color-canvas: var(--nuk-color-neutral-0);
+    --nuk-color-surface: var(--nuk-color-neutral-50);
+    --nuk-color-surface-raised: var(--nuk-color-neutral-0);
+    --nuk-color-text: var(--nuk-color-neutral-950);
+    --nuk-color-text-muted: var(--nuk-color-neutral-600);
+    --nuk-color-border: var(--nuk-color-neutral-300);
+    --nuk-color-accent: var(--nuk-color-blue-600);
+    --nuk-color-accent-hover: var(--nuk-color-blue-700);
+    --nuk-color-on-accent: var(--nuk-color-neutral-0);
+    --nuk-color-focus: var(--nuk-color-blue-600);
+    --nuk-color-danger: var(--nuk-color-red-700);
+    --nuk-color-danger-soft: #fff1f0;
+    --nuk-color-success: var(--nuk-color-green-700);
+    --nuk-color-success-soft: #e9f8ee;
+    --nuk-color-warning: var(--nuk-color-amber-800);
+    --nuk-color-warning-soft: #fff7df;
+    --nuk-control-bg: var(--nuk-color-neutral-0);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-nuk-theme]),
+    :host(:not([data-nuk-theme])) {
+      color-scheme: dark;
+      --nuk-color-canvas: var(--nuk-color-neutral-950);
+      --nuk-color-surface: #191d22;
+      --nuk-color-surface-raised: var(--nuk-color-neutral-800);
+      --nuk-color-text: var(--nuk-color-neutral-50);
+      --nuk-color-text-muted: var(--nuk-color-neutral-300);
+      --nuk-color-border: var(--nuk-color-neutral-600);
+      --nuk-color-accent: var(--nuk-color-blue-300);
+      --nuk-color-accent-hover: #b5dcff;
+      --nuk-color-on-accent: var(--nuk-color-neutral-950);
+      --nuk-color-focus: var(--nuk-color-blue-300);
+      --nuk-color-danger: var(--nuk-color-red-300);
+      --nuk-color-danger-soft: #3b1d1c;
+      --nuk-color-success: var(--nuk-color-green-300);
+      --nuk-color-success-soft: #123322;
+      --nuk-color-warning: var(--nuk-color-amber-300);
+      --nuk-color-warning-soft: #352b12;
+      --nuk-control-bg: #15191e;
+    }
+  }
+
+  :root[data-nuk-theme='dark'],
+  [data-nuk-theme='dark'] {
+    color-scheme: dark;
+    --nuk-color-canvas: var(--nuk-color-neutral-950);
+    --nuk-color-surface: #191d22;
+    --nuk-color-surface-raised: var(--nuk-color-neutral-800);
+    --nuk-color-text: var(--nuk-color-neutral-50);
+    --nuk-color-text-muted: var(--nuk-color-neutral-300);
+    --nuk-color-border: var(--nuk-color-neutral-600);
+    --nuk-color-accent: var(--nuk-color-blue-300);
+    --nuk-color-accent-hover: #b5dcff;
+    --nuk-color-on-accent: var(--nuk-color-neutral-950);
+    --nuk-color-focus: var(--nuk-color-blue-300);
+    --nuk-color-danger: var(--nuk-color-red-300);
+    --nuk-color-danger-soft: #3b1d1c;
+    --nuk-color-success: var(--nuk-color-green-300);
+    --nuk-color-success-soft: #123322;
+    --nuk-color-warning: var(--nuk-color-amber-300);
+    --nuk-color-warning-soft: #352b12;
+    --nuk-control-bg: #15191e;
+  }
+
+  @media (forced-colors: active) {
+    :root,
+    :host,
+    [data-nuk-theme] {
+      --nuk-color-canvas: Canvas;
+      --nuk-color-surface: Canvas;
+      --nuk-color-surface-raised: Canvas;
+      --nuk-color-text: CanvasText;
+      --nuk-color-text-muted: CanvasText;
+      --nuk-color-border: ButtonBorder;
+      --nuk-color-accent: LinkText;
+      --nuk-color-accent-hover: LinkText;
+      --nuk-color-on-accent: Canvas;
+      --nuk-color-focus: Highlight;
+      --nuk-color-danger: MarkText;
+      --nuk-color-danger-soft: Mark;
+      --nuk-color-success: CanvasText;
+      --nuk-color-success-soft: Canvas;
+      --nuk-color-warning: CanvasText;
+      --nuk-color-warning-soft: Canvas;
+      --nuk-control-bg: Field;
+    }
+  }
+}

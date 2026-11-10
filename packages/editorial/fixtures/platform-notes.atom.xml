@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Fixture Platform Notes</title>
+  <id>https://fixtures.example.test/</id>
+  <updated>2026-10-29T15:00:00Z</updated>
+  <entry>
+    <title>Container-aware components without viewport assumptions</title>
+    <link rel="alternate" href="https://fixtures.example.test/container-aware-components?utm_source=test" />
+    <id>fixture:container-aware-components</id>
+    <published>2026-10-29T15:00:00Z</published>
+    <summary>How intrinsic sizing and container queries keep interface components useful inside sidebars, cards, and full-width layouts.</summary>
+  </entry>
+  <entry>
+    <title>Testing accessible names across native controls</title>
+    <link rel="alternate" href="https://fixtures.example.test/accessible-names" />
+    <id>fixture:accessible-names</id>
+    <published>2026-10-27T10:30:00Z</published>
+    <summary>A practical test matrix for labels, descriptions, errors, and name computation on form controls.</summary>
+  </entry>
+  <entry>
+    <title>Forced colors as a first-class design constraint</title>
+    <link rel="alternate" href="https://fixtures.example.test/forced-colors" />
+    <id>fixture:forced-colors</id>
+    <published>2026-10-25T08:00:00Z</published>
+    <summary>Use system colors, visible boundaries, and resilient focus indicators when authored colors are replaced.</summary>
+  </entry>
+</feed>

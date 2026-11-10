@@ -1,0 +1,29 @@
+{
+  "$schema": "../../schemas/source-policy.v1.schema.json",
+  "policyVersion": "1.0.0",
+  "defaultDecision": "deny",
+  "allowedSourceKinds": [
+    "first-party-specification",
+    "public-accessibility-guidance",
+    "public-api-documentation",
+    "public-standard"
+  ],
+  "allowedLicenseExpressions": ["CC-BY-4.0", "CC-BY-SA-2.5", "MIT", "W3C-20150513"],
+  "allowedUriSchemes": ["https:", "repo:"],
+  "allowedHttpsHosts": ["developer.mozilla.org", "w3.org", "www.w3.org"],
+  "deniedMaterialKinds": [
+    "decompiled-output",
+    "implementation-source",
+    "minified-bundle",
+    "source-map",
+    "third-party-code-snippet",
+    "unknown-origin"
+  ],
+  "requiredDeclarations": [
+    "implementationSourceInspected=false",
+    "sourceMapsInspected=false",
+    "decompiledArtifactsInspected=false",
+    "copiedCodeOrStyles=false",
+    "sources[].excerptsCopied=false"
+  ]
+}

@@ -1,0 +1,66 @@
+name: Pull request quality
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: pr-quality-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Format, lint, types, tests, builds, and package checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+    steps:
+      - name: Check out the proposed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+
+      - name: Enable the repository package manager
+        run: corepack enable pnpm
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Reject movable action references
+        shell: bash
+        run: |
+          node <<'NODE'
+          const { readdirSync, readFileSync } = require('node:fs');
+          const failures = [];
+          for (const file of readdirSync('.github/workflows').filter((name) => /\.ya?ml$/.test(name))) {
+            const source = readFileSync(`.github/workflows/${file}`, 'utf8');
+            for (const match of source.matchAll(/^\s*uses:\s*([^\s#]+).*$/gm)) {
+              const value = match[1];
+              if (value.startsWith('./')) continue;
+              const reference = value.slice(value.lastIndexOf('@') + 1);
+              if (!/^[0-9a-f]{40}$/.test(reference)) failures.push(`${file}: ${value}`);
+            }
+          }
+          if (failures.length > 0) {
+            console.error(`Third-party actions must use a full commit SHA:\n${failures.join('\n')}`);
+            process.exit(1);
+          }
+          NODE
+
+      - name: Run the repository quality gate
+        run: pnpm check
+
+      - name: Run the clean-room proof
+        run: pnpm forge:proof
+
+      - name: Exercise the deterministic editorial fixture
+        run: |
+          mkdir -p apps/digest/src/content/issues/generated
+          pnpm digest:fixture

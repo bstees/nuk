@@ -1,0 +1,13 @@
+environment        = "staging"
+aws_region         = "us-east-2"
+docs_domain_name   = "components-staging.example.com"
+digest_domain_name = "digest-staging.example.com"
+github_repository  = "OWNER/REPOSITORY"
+github_environment = "staging"
+
+# Phase 1 leaves CloudFront disabled while ACM waits for the GoDaddy CNAMEs.
+enable_cloudfront = false
+
+# Set only when someone is ready to confirm the SNS subscription and receive alerts.
+alert_email       = null
+monthly_budget_usd = 10

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nuk-ui:forge:intake-record:v1",
+  "title": "Clean-room source intake record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "requestId",
+    "componentId",
+    "recordedAt",
+    "recordedBy",
+    "cleanRoomDeclaration",
+    "sources"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": "1.0.0" },
+    "requestId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$" },
+    "componentId": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)+$" },
+    "recordedAt": { "type": "string", "format": "date-time" },
+    "recordedBy": { "type": "string", "minLength": 1 },
+    "cleanRoomDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "implementationSourceInspected",
+        "sourceMapsInspected",
+        "decompiledArtifactsInspected",
+        "copiedCodeOrStyles"
+      ],
+      "properties": {
+        "implementationSourceInspected": { "const": false },
+        "sourceMapsInspected": { "const": false },
+        "decompiledArtifactsInspected": { "const": false },
+        "copiedCodeOrStyles": { "const": false }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "uri",
+          "sourceKind",
+          "licenseExpression",
+          "materialKinds",
+          "factsUsed",
+          "excerptsCopied"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$" },
+          "title": { "type": "string", "minLength": 1 },
+          "uri": { "type": "string", "minLength": 1 },
+          "sourceKind": { "type": "string", "minLength": 1 },
+          "licenseExpression": { "type": "string", "minLength": 1 },
+          "materialKinds": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "factsUsed": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "excerptsCopied": { "const": false }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+@layer nuk.tokens {
+  :root,
+  :host {
+    --nuk-color-neutral-0: #fff;
+    --nuk-color-neutral-50: #f7f8fa;
+    --nuk-color-neutral-100: #eceff3;
+    --nuk-color-neutral-300: #c5cbd4;
+    --nuk-color-neutral-600: #515a67;
+    --nuk-color-neutral-800: #252a31;
+    --nuk-color-neutral-950: #101216;
+    --nuk-color-blue-300: #8cc8ff;
+    --nuk-color-blue-600: #1769aa;
+    --nuk-color-blue-700: #0d568f;
+    --nuk-color-red-300: #ffaaa3;
+    --nuk-color-red-700: #a6261e;
+    --nuk-color-green-300: #85d6a3;
+    --nuk-color-green-700: #18753a;
+    --nuk-color-amber-300: #f2c866;
+    --nuk-color-amber-800: #755300;
+
+    --nuk-font-sans:
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --nuk-font-mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+    --nuk-font-size-xs: 0.75rem;
+    --nuk-font-size-sm: 0.875rem;
+    --nuk-font-size-md: 1rem;
+    --nuk-font-size-lg: 1.25rem;
+    --nuk-font-size-xl: 1.5rem;
+    --nuk-font-size-2xl: 2rem;
+    --nuk-line-height-compact: 1.25;
+    --nuk-line-height-body: 1.5;
+    --nuk-line-height-relaxed: 1.7;
+
+    --nuk-space-0: 0;
+    --nuk-space-1: 0.25rem;
+    --nuk-space-2: 0.5rem;
+    --nuk-space-3: 0.75rem;
+    --nuk-space-4: 1rem;
+    --nuk-space-5: 1.5rem;
+    --nuk-space-6: 2rem;
+    --nuk-space-7: 3rem;
+
+    --nuk-radius-sm: 0.25rem;
+    --nuk-radius-md: 0.5rem;
+    --nuk-radius-lg: 0.75rem;
+    --nuk-radius-pill: 999rem;
+    --nuk-shadow-sm: 0 0.0625rem 0.125rem rgb(16 18 22 / 0.12);
+    --nuk-shadow-md: 0 0.5rem 1.5rem rgb(16 18 22 / 0.16);
+    --nuk-duration-fast: 120ms;
+    --nuk-duration-normal: 200ms;
+    --nuk-z-menu: 20;
+    --nuk-z-dialog: 40;
+
+    /* One CSS pixel intentionally maps to a crisp device-adjusted control edge. */
+    --nuk-border-width: 1px;
+    --nuk-focus-width: 0.1875rem;
+  }
+}

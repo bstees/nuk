@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Methodology — Signal / Interface" description="How Signal / Interface gathers, cites, edits, and approves each static issue." canonicalPath="/about/">
+  <header class="page-intro shell">
+    <p class="eyebrow">About / methodology</p>
+    <h1>A small digest with a visible seam.</h1>
+    <p>Signal / Interface is an editorial filter for people who build interfaces. Automation helps gather and normalize. A person decides what the issue says.</p>
+  </header>
+  <div class="method shell">
+    <aside aria-label="Method summary">
+      <p class="method__big">Feeds in.<br />Draft out.<br /><em>Human gate.</em></p>
+    </aside>
+    <div class="prose">
+      <h2>How an issue moves</h2>
+      <ol class="method-steps">
+        <li><strong>Gather.</strong><span>A weekly job reads only the versioned RSS/Atom allowlist. Network access is explicit and bounded.</span></li>
+        <li><strong>Normalize.</strong><span>Canonical URLs, dates, sources, topics, and duplicate titles become one predictable record.</span></li>
+        <li><strong>Draft.</strong><span>The credential-free fallback creates cautious placeholders. A future model path must use the same versioned schema and prompt.</span></li>
+        <li><strong>Challenge.</strong><span>Checks flag missing citations, oversized quotes, tracking links, duplicate items, and unresolved claims.</span></li>
+        <li><strong>Edit.</strong><span>Brent checks the source, rewrites the summary, clears flags, and changes the review state in a draft pull request.</span></li>
+        <li><strong>Merge.</strong><span>Only an approved merge can place an issue on the production branch. The schedule never publishes.</span></li>
+      </ol>
+      <h2>Editorial boundaries</h2>
+      <p>Summaries should tell you what changed, what is supported, and why it may be useful. Vendor claims stay attributed. We do not manufacture consensus, adoption, benchmarks, or importance. Every factual item links to its evidence.</p>
+      <p>Quotes are exceptional and capped at 20 words per excerpt—stricter than the pipeline’s source-use ceiling. The original source deserves the reading and the traffic.</p>
+      <h2>Corrections</h2>
+      <p>Approved issue files are version-controlled. A correction changes the source record in a reviewed commit; it does not silently rewrite build output. A public contact route will be added before deployment.</p>
+    </div>
+  </div>
+</BaseLayout>

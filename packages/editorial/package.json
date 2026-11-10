@@ -1,0 +1,36 @@
+{
+  "name": "@nuk-ui/editorial",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic, review-gated digest intake and draft generation.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./dist/index.js"
+    },
+    "./sources": "./sources/sources.v1.json"
+  },
+  "files": [
+    "dist",
+    "prompts",
+    "sources"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist coverage",
+    "generate:fixture": "tsx src/cli.ts --fixture --date 2026-10-30 --issue 2",
+    "generate:weekly": "tsx src/cli.ts --network --date $(date -u +%F)",
+    "test": "vitest run --coverage.enabled=false",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "fast-xml-parser": "5.11.2"
+  },
+  "devDependencies": {
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  }
+}

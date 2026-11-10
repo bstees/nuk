@@ -1,0 +1,75 @@
+@layer nuk.elements {
+  :where(
+    nuk-alert,
+    nuk-breadcrumbs,
+    nuk-button,
+    nuk-card,
+    nuk-checkbox,
+    nuk-cluster,
+    nuk-dialog,
+    nuk-disclosure,
+    nuk-field,
+    nuk-grid,
+    nuk-link,
+    nuk-menu,
+    nuk-menu-item,
+    nuk-nav,
+    nuk-radio,
+    nuk-select,
+    nuk-stack,
+    nuk-status,
+    nuk-switch,
+    nuk-tab,
+    nuk-tab-panel,
+    nuk-table,
+    nuk-tabs,
+    nuk-text-field,
+    nuk-textarea
+  ) {
+    box-sizing: border-box;
+  }
+
+  :where(
+    nuk-alert,
+    nuk-breadcrumbs,
+    nuk-card,
+    nuk-cluster,
+    nuk-disclosure,
+    nuk-field,
+    nuk-grid,
+    nuk-menu-item,
+    nuk-nav,
+    nuk-stack,
+    nuk-status,
+    nuk-tab-panel,
+    nuk-table,
+    nuk-tabs
+  ) {
+    display: block;
+  }
+
+  :where(
+    nuk-button,
+    nuk-link,
+    nuk-text-field,
+    nuk-textarea,
+    nuk-select,
+    nuk-checkbox,
+    nuk-radio,
+    nuk-switch
+  ) {
+    display: inline-block;
+  }
+
+  :where(nuk-stack, nuk-cluster, nuk-grid):not(:defined) {
+    display: block;
+  }
+
+  :where(nuk-dialog, nuk-menu):not(:defined) {
+    display: none;
+  }
+
+  :where([hidden]) {
+    display: none !important;
+  }
+}

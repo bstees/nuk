@@ -1,0 +1,94 @@
+name: SBOM and build provenance
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    name: Generate local supply-chain evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+
+      - name: Enable the repository package manager
+        run: corepack enable pnpm
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build static subjects
+        run: |
+          pnpm storybook:build
+          pnpm digest:build
+
+      - name: Generate the CycloneDX SBOM
+        run: pnpm sbom:generate
+
+      - name: Create deterministic archives and checksums
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          tar --sort=name --mtime='UTC 1970-01-01' --owner=0 --group=0 --numeric-owner \
+            -czf artifacts/storybook-static.tar.gz -C apps/storybook storybook-static
+          tar --sort=name --mtime='UTC 1970-01-01' --owner=0 --group=0 --numeric-owner \
+            -czf artifacts/digest-static.tar.gz -C apps/digest dist
+          sha256sum artifacts/*.tar.gz outputs/sbom.cdx.json | sort -k2 > artifacts/SHA256SUMS
+
+      - name: Record an in-toto provenance statement
+        shell: bash
+        run: |
+          node <<'NODE'
+          const { readFileSync, writeFileSync } = require('node:fs');
+          const subjects = readFileSync('artifacts/SHA256SUMS', 'utf8').trim().split('\n').map((line) => {
+            const [sha256, name] = line.split(/\s{2,}/);
+            return { name, digest: { sha256 } };
+          });
+          const repository = process.env.GITHUB_REPOSITORY;
+          const server = process.env.GITHUB_SERVER_URL;
+          const run = `${server}/${repository}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+          const statement = {
+            _type: 'https://in-toto.io/Statement/v1',
+            subject: subjects,
+            predicateType: 'https://slsa.dev/provenance/v1',
+            predicate: {
+              buildDefinition: {
+                buildType: `${server}/${repository}/.github/workflows/supply-chain.yml@${process.env.GITHUB_SHA}`,
+                externalParameters: { ref: process.env.GITHUB_REF },
+                internalParameters: { event: process.env.GITHUB_EVENT_NAME },
+                resolvedDependencies: [{
+                  uri: `git+${server}/${repository}.git`,
+                  digest: { gitCommit: process.env.GITHUB_SHA },
+                }],
+              },
+              runDetails: {
+                builder: { id: 'https://github.com/actions/runner' },
+                metadata: { invocationId: run },
+              },
+            },
+          };
+          writeFileSync('artifacts/build-provenance.intoto.json', `${JSON.stringify(statement, null, 2)}\n`);
+          NODE
+
+      - name: Upload SBOM, subjects, checksums, and provenance
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: supply-chain-evidence-${{ github.sha }}
+          path: |
+            artifacts
+            outputs/sbom.cdx.json
+          if-no-files-found: error
+          retention-days: 30

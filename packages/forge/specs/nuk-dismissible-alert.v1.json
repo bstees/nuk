@@ -1,0 +1,152 @@
+{
+  "$schema": "../schemas/component-spec.v1.schema.json",
+  "schemaVersion": "1.0.0",
+  "id": "nuk-dismissible-alert",
+  "version": "1.0.0",
+  "namespace": "nuk-",
+  "summary": "A status or alert region that a user can dismiss with a native button and restore through its public reset method.",
+  "provenance": {
+    "intakeRecord": "../intake/nuk-dismissible-alert.v1.json",
+    "sourceIds": ["first-party-alert-brief", "w3c-aria-alert-pattern", "mdn-button-reference"]
+  },
+  "semantics": {
+    "hostElement": "nuk-dismissible-alert",
+    "permittedRoles": ["status", "alert"],
+    "requiredParts": [
+      {
+        "name": "dismiss-control",
+        "selector": ":scope > button[data-dismiss]",
+        "nativeElement": "button",
+        "requirements": [
+          "type=button",
+          "non-empty textContent or aria-label",
+          "remains in the light DOM"
+        ]
+      }
+    ]
+  },
+  "states": [
+    {
+      "name": "visibility",
+      "values": ["visible", "dismissed"],
+      "initial": "visible"
+    }
+  ],
+  "events": [
+    {
+      "name": "nuk-dismiss",
+      "bubbles": true,
+      "composed": true,
+      "detail": { "dismissed": "boolean" }
+    },
+    {
+      "name": "nuk-config-error",
+      "bubbles": true,
+      "composed": true,
+      "detail": { "code": "string" }
+    }
+  ],
+  "behavior": [
+    {
+      "id": "BEH-001",
+      "given": "the component is visible and has a valid native dismiss button",
+      "when": "the button is activated",
+      "then": [
+        "the host hidden property becomes true",
+        "the host data-state attribute becomes dismissed",
+        "one bubbling and composed nuk-dismiss event is dispatched with detail.dismissed=true"
+      ]
+    },
+    {
+      "id": "BEH-002",
+      "given": "the component has been dismissed",
+      "when": "reset() is called",
+      "then": [
+        "the host hidden property becomes false",
+        "the host data-state attribute becomes visible",
+        "no synthetic focus movement occurs"
+      ]
+    },
+    {
+      "id": "BEH-003",
+      "given": "the component is reconnected or its light-DOM dismiss button changes",
+      "when": "connectedCallback() runs",
+      "then": [
+        "any listener on the previous button is removed",
+        "at most one click listener is registered on the current valid button"
+      ]
+    },
+    {
+      "id": "BEH-004",
+      "given": "the host has an invalid role or lacks a named native type=button dismiss control",
+      "when": "connectedCallback() runs",
+      "then": [
+        "no dismiss listener is registered",
+        "one bubbling and composed nuk-config-error event identifies the authoring error",
+        "the host remains visible"
+      ]
+    }
+  ],
+  "accessibility": {
+    "target": "WCAG 2.2 AA",
+    "keyboard": [
+      "Use a native button so Enter and Space activation are provided by the browser.",
+      "Do not add a positive tabindex or intercept unrelated keys."
+    ],
+    "naming": [
+      "The dismiss button must have non-empty visible text or aria-label.",
+      "The host role must be status for ordinary feedback or alert only for urgent feedback."
+    ],
+    "screenReader": [
+      "Do not move focus when the component appears or is dismissed.",
+      "The author must move focus before dismissing an alert that contains current focus."
+    ],
+    "forcedColors": [
+      "The structural implementation does not suppress system colors or focus indicators."
+    ],
+    "reducedMotion": ["The structural implementation introduces no animation or transition."]
+  },
+  "security": {
+    "allowedCapabilities": ["dom-query", "dom-attribute", "dom-event"],
+    "forbiddenCapabilities": [
+      "dynamic-code-execution",
+      "inline-script-injection",
+      "network-access",
+      "persistent-storage",
+      "undeclared-dependency"
+    ]
+  },
+  "acceptanceTests": [
+    {
+      "id": "ACC-001",
+      "level": "behavior",
+      "assertion": "Activating the valid native button dismisses the host and emits the specified event once."
+    },
+    {
+      "id": "ACC-002",
+      "level": "behavior",
+      "assertion": "reset() restores visible state without moving focus."
+    },
+    {
+      "id": "ACC-003",
+      "level": "accessibility",
+      "assertion": "Invalid role or unnamed/non-button dismiss controls do not initialize and surface a configuration error event."
+    },
+    {
+      "id": "ACC-004",
+      "level": "conformance",
+      "assertion": "The implementation registers only nuk-dismissible-alert and uses light DOM with a native button."
+    },
+    {
+      "id": "ACC-005",
+      "level": "static",
+      "assertion": "The implementation contains no forbidden capability and imports no undeclared dependency."
+    }
+  ],
+  "generation": {
+    "generatorVersion": "1.0.0",
+    "templateId": "dismissible-alert.v1",
+    "promptVersion": "v1",
+    "skillVersion": "v1"
+  }
+}

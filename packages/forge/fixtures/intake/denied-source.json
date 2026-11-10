@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "requestId": "fixture-denied-source",
+  "componentId": "nuk-fixture",
+  "recordedAt": "2026-11-01T12:00:00.000Z",
+  "recordedBy": "fixture",
+  "cleanRoomDeclaration": {
+    "implementationSourceInspected": true,
+    "sourceMapsInspected": false,
+    "decompiledArtifactsInspected": false,
+    "copiedCodeOrStyles": false
+  },
+  "sources": [
+    {
+      "id": "forbidden-source",
+      "title": "Third-party implementation",
+      "uri": "file:///tmp/vendor/component.js",
+      "sourceKind": "implementation-source",
+      "licenseExpression": "UNKNOWN",
+      "materialKinds": ["implementation-source", "source-map"],
+      "factsUsed": ["Implementation details"],
+      "excerptsCopied": true
+    }
+  ]
+}
