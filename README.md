@@ -48,4 +48,5 @@ For a first install before a lockfile exists, use `pnpm install`. See
   review remains mandatory.
 
 The implementation plan and completion criteria live in
-[`docs/implementation-plan.md`](docs/implementation-plan.md).
+[`docs/implementation-plan.md`](docs/implementation-plan.md). Future research and catalog work is
+tracked in [`docs/backlog.md`](docs/backlog.md).
