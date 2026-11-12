@@ -5,6 +5,7 @@ import {
   createStructuralStyles,
   defineElements,
   eventName,
+  formatElementPrefix,
   normalizeElementPrefix,
 } from '../src/registry.js';
 
@@ -17,6 +18,9 @@ describe('custom-element registry', () => {
   });
 
   it('normalizes a trailing hyphen and rejects unsafe prefixes', () => {
+    expect(formatElementPrefix('acme')).toBe('acme-');
+    expect(formatElementPrefix('acme-')).toBe('acme-');
+    expect(formatElementPrefix()).toBe('nuk-');
     expect(normalizeElementPrefix('acme-ui-')).toBe('acme-ui');
     expect(eventName('acme-ui-', 'change')).toBe('acme-ui-change');
     expect(() => normalizeElementPrefix('Acme')).toThrow(/lowercase/);

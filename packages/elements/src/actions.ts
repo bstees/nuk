@@ -40,7 +40,7 @@ const buttonStyles = `
     }
     :host([variant='quiet']) button {
       background: transparent;
-      color: var(--nuk-color-accent, LinkText);
+      color: var(--nuk-color-accent-text, var(--nuk-color-accent, LinkText));
     }
     @media (forced-colors: active) {
       button { border-color: ButtonBorder; forced-color-adjust: auto; }
@@ -155,8 +155,8 @@ const linkTemplate = createTemplate(`<a part="link"><slot></slot></a>`);
 const linkStyles = `
   @layer nuk.components {
     :host { display: inline; font: inherit; }
-    a { color: var(--nuk-color-accent, LinkText); text-underline-offset: 0.18em; }
-    a:hover { color: var(--nuk-color-accent-hover, LinkText); text-decoration-thickness: 0.125em; }
+    a { color: var(--nuk-color-accent-text, var(--nuk-color-accent, LinkText)); text-underline-offset: 0.18em; }
+    a:hover { color: var(--nuk-color-accent-text-hover, var(--nuk-color-accent-hover, LinkText)); text-decoration-thickness: 0.125em; }
     a:focus-visible {
       border-radius: var(--nuk-radius-sm, 0.25rem);
       outline: var(--nuk-focus-width, 0.1875rem) solid var(--nuk-color-focus, Highlight);

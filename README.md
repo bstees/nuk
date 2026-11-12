@@ -48,6 +48,9 @@ The first consumer is [brentstees.com](https://brentstees.com), which is develop
 gaps it finds are logged in [`docs/backlog.md`](docs/backlog.md). The Friday AI Engineering Brief
 that used to live here as `apps/digest` and `packages/editorial` now ships with that site.
 
+Per-component API, keyboard, parts and screen-reader notes are in
+[`docs/components.md`](docs/components.md).
+
 The implementation plan and completion criteria live in
 [`docs/implementation-plan.md`](docs/implementation-plan.md). Future research and catalog work is
 tracked in [`docs/backlog.md`](docs/backlog.md).

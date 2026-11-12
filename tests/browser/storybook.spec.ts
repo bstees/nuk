@@ -9,6 +9,45 @@ async function openStory(page: Parameters<typeof expectNoA11yViolations>[0], id:
   await expect(page.locator('#storybook-root')).toBeVisible();
 }
 
+interface StoryIndex {
+  readonly entries: Readonly<Record<string, { readonly id: string; readonly type: string }>>;
+}
+
+// Every story in the built catalog is scanned, in both themes, so a new story cannot skip axe.
+for (const theme of ['light', 'dark'] as const) {
+  test(`every story passes axe in the ${theme} theme`, async ({ page, request }) => {
+    test.slow();
+    const response = await request.get(`${storybook}/index.json`);
+    expect(response.ok()).toBe(true);
+    const index = (await response.json()) as StoryIndex;
+    const stories = Object.values(index.entries).filter((entry) => entry.type === 'story');
+    expect(stories.length).toBeGreaterThanOrEqual(12);
+
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    for (const story of stories) {
+      await test.step(story.id, async () => {
+        await page.goto(
+          `${storybook}/iframe.html?viewMode=story&id=${story.id}&globals=theme:${theme}`,
+        );
+        await expect(page.locator('#storybook-root')).not.toBeEmpty();
+        await expect(page.locator('.nuk-story-surface').first()).toHaveAttribute(
+          'data-nuk-theme',
+          theme,
+        );
+        await expectNoA11yViolations(page);
+      });
+    }
+  });
+}
+
+// The dialog story opens itself in its play function, so the sweep above scans it open.
+test('an open menu passes axe', async ({ page }) => {
+  await openStory(page, 'components-dialog-and-menu--menu');
+  await page.getByRole('button').first().click();
+  await expect(page.getByRole('menu')).toBeVisible();
+  await expectNoA11yViolations(page);
+});
+
 test('button story runs the real custom element and passes axe', async ({ page }) => {
   await openStory(page, 'components-actions--button');
   const button = page.locator('nuk-button').getByRole('button', { name: 'Start review' });

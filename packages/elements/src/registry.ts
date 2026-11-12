@@ -9,7 +9,12 @@ import { NukMenu, NukMenuItem } from './menu.js';
 import { NukBreadcrumbs, NukNav } from './navigation.js';
 import { NukTab, NukTabPanel, NukTabs } from './tabs.js';
 import { NukSelect, NukTextField, NukTextarea } from './text-controls.js';
-import { createTagNames, eventName, normalizeElementPrefix } from './prefix.js';
+import {
+  createTagNames,
+  eventName,
+  formatElementPrefix,
+  normalizeElementPrefix,
+} from './prefix.js';
 import type { ElementName, ElementTagNames } from './prefix.js';
 
 export {
@@ -18,6 +23,7 @@ export {
   DEFAULT_ELEMENT_PREFIX,
   elementNames,
   eventName,
+  formatElementPrefix,
   normalizeElementPrefix,
   tagName,
 } from './prefix.js';
@@ -131,7 +137,7 @@ export function defineElements(options: DefineElementsOptions = {}): DefinedElem
 
   return Object.freeze({
     event: (name: string) => eventName(prefix, name),
-    prefix: `${prefix}-` as const,
+    prefix: formatElementPrefix(prefix),
     tags,
   });
 }

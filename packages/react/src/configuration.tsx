@@ -4,13 +4,14 @@ import {
   createTagNames,
   DEFAULT_ELEMENT_PREFIX,
   eventName,
-  normalizeElementPrefix,
+  formatElementPrefix,
   type ElementTagNames,
 } from '@nuk-ui/elements/prefix';
 
 export interface NukConfiguration {
   readonly autoDefine: boolean;
-  readonly prefix: string;
+  /** Normalized prefix including its trailing hyphen, exactly as `defineElements()` reports it. */
+  readonly prefix: `${string}-`;
   readonly tags: ElementTagNames;
   readonly registry: CustomElementRegistry | undefined;
   event(name: string): `${string}-${string}`;
@@ -19,7 +20,7 @@ export interface NukConfiguration {
 const defaultConfiguration: NukConfiguration = {
   autoDefine: true,
   event: (name) => eventName(DEFAULT_ELEMENT_PREFIX, name),
-  prefix: DEFAULT_ELEMENT_PREFIX,
+  prefix: formatElementPrefix(DEFAULT_ELEMENT_PREFIX),
   registry: undefined,
   tags: createTagNames(DEFAULT_ELEMENT_PREFIX),
 };
@@ -41,7 +42,7 @@ export function NukProvider({
   prefix = DEFAULT_ELEMENT_PREFIX,
   registry,
 }: NukProviderProps) {
-  const normalized = normalizeElementPrefix(prefix);
+  const normalized = formatElementPrefix(prefix);
   const value = useMemo<NukConfiguration>(
     () => ({
       autoDefine,

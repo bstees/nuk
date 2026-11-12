@@ -47,11 +47,12 @@ export const SpacingAndType: Story = {
       <p style={{ fontSize: 'var(--nuk-font-size-2xl)' }}>
         Readable interfaces start with a calm rhythm.
       </p>
-      <div className="story-row" aria-label="Spacing scale">
+      <div className="story-row" role="group" aria-label="Spacing scale">
         {[1, 2, 3, 4, 5, 6, 7].map((step) => (
           <div
             aria-label={`Space ${String(step)}`}
             key={step}
+            role="img"
             style={{
               background: 'var(--nuk-color-accent)',
               blockSize: `var(--nuk-space-${String(step)})`,

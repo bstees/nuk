@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { elementNames } from '@nuk-ui/elements/prefix';
 import {
   NukAlert,
   NukBreadcrumbs,
@@ -27,7 +28,7 @@ export const MessagesAndCards: Story = {
       <NukStatus severity="success">All local checks passed.</NukStatus>
       <NukGrid min="small">
         <NukCard label="Component report">
-          <h2 slot="heading">26 custom elements</h2>
+          <h2 slot="heading">{elementNames.length} custom elements</h2>
           <p>Semantic foundations plus representative interactive patterns.</p>
           <NukLink href="#catalog" slot="footer">
             Review catalog

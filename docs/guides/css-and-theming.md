@@ -27,6 +27,27 @@ Forced-colors rules use system colors and preserve visible focus/boundaries. Do 
 `forced-color-adjust: none` except for a tested, meaning-bearing swatch that cannot be represented
 by system colors.
 
+## Bringing your own brand
+
+A consumer with its own design tokens can skip `@nuk-ui/theme` and assign the semantic properties
+itself, for example with `light-dark()`:
+
+```css
+:root {
+  --nuk-color-canvas: var(--bg);
+  --nuk-color-text: var(--ink);
+  --nuk-color-accent: var(--accent); /* fills */
+  --nuk-color-on-accent: var(--on-accent);
+  --nuk-color-accent-text: var(--accent-ink); /* links and quiet buttons */
+  --nuk-color-focus: var(--focus);
+}
+```
+
+`--nuk-color-accent-text` exists because a brand accent that works as a fill (a bright lime, say) is
+often unreadable as text. It falls back to `--nuk-color-accent`, so themes that use one accent for
+both need not set it. Shape differences that a token does not cover (a pill-shaped button) are set
+through parts: `nuk-button::part(button) { border-radius: 999px; }`.
+
 ## Container behavior
 
 Every component is a container or participates in intrinsic layout where local width changes its

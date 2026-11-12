@@ -46,6 +46,14 @@ export function normalizeElementPrefix(value: string = DEFAULT_ELEMENT_PREFIX): 
   return prefix;
 }
 
+/**
+ * The public form of a prefix: validated, with exactly one trailing hyphen (`nuk-`).
+ * `defineElements()` and the React configuration both report this form.
+ */
+export function formatElementPrefix(value: string = DEFAULT_ELEMENT_PREFIX): `${string}-` {
+  return `${normalizeElementPrefix(value)}-`;
+}
+
 export function tagName(prefix: string, component: ElementName): `${string}-${ElementName}` {
   return `${normalizeElementPrefix(prefix)}-${component}`;
 }

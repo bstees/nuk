@@ -15,6 +15,7 @@ export {
   defineElements,
   elementDefinitions,
   eventName,
+  formatElementPrefix,
   normalizeElementPrefix,
   tagName,
 } from './registry.js';
