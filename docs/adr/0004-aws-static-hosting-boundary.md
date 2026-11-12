@@ -2,6 +2,9 @@
 
 - Status: accepted
 - Date: 2026-11-02
+- Amended: 2026-11-12. The editorial digest moved to brentstees.com, so this design now covers one
+  site (the Storybook documentation): one content bucket, one certificate and one distribution. The
+  text below is the original two-site decision.
 
 ## Context
 

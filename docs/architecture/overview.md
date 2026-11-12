@@ -3,10 +3,9 @@
 The repository has three deliberately separate trust and delivery planes.
 
 1. **Authored library:** tokens, structural custom elements, React adapters, and optional theme CSS.
-2. **Review applications:** Storybook and the static Signal / Interface digest consume packages but
-   do not publish them.
-3. **Untrusted inputs:** component-generation requests and remote feeds enter constrained staging
-   areas. Automation can create candidates or draft issues; only a human can promote or approve.
+2. **Review application:** Storybook consumes the packages but does not publish them.
+3. **Untrusted inputs:** component-generation requests enter a constrained staging area. Automation
+   can create candidates; only a human can promote or approve.
 
 ## Runtime graph
 
@@ -17,10 +16,7 @@ The repository has three deliberately separate trust and delivery planes.
              │              └── Storybook
              └───────────────── plain HTML consumers
 
-@nuk-ui/editorial ──────── Signal / Interface (static Astro output)
-
 normalized spec ── Forge candidate ── static/conformance checks ── HUMAN APPROVAL ── package source
-curated feeds ──── draft issue ───── citation/quote checks ─────── HUMAN APPROVAL ── main branch
 ```
 
 The default custom-element prefix is `nuk-`. `defineElements({ prefix: 'acme' })` validates a
@@ -55,11 +51,10 @@ Structural styles are enough to operate and understand a component. Theme styles
 and typographic personality. Custom properties cross shadow boundaries; stable shadow parts are
 documented rather than accidental.
 
-## Static applications
+## Static application
 
-Storybook builds to static files and uses only local component assets. The digest uses Astro static
-generation: issue JSON, archive/topic pages, RSS, sitemap, and metadata are all emitted at build
-time. There is no production application server or database in v1.
+Storybook builds to static files and uses only local component assets. There is no production
+application server or database in v1.
 
 ## Reproducibility
 

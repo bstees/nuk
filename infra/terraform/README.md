@@ -1,9 +1,9 @@
 # Review-only AWS static hosting
 
-This directory describes two independent private S3 origins and CloudFront distributions: one for
-Storybook documentation and one for the digest. It also describes DNS-validated ACM certificates,
-central access logs, conservative caching, security headers, cost/error notifications, and a GitHub
-OIDC role restricted to one repository Environment.
+This directory describes a private S3 origin and CloudFront distribution for the Storybook
+documentation site. It also describes a DNS-validated ACM certificate, central access logs,
+conservative caching, security headers, cost/error notifications, and a GitHub OIDC role restricted
+to one repository Environment.
 
 Nothing in this repository applies this configuration. The checked-in GitHub workflows format,
 initialize with the backend disabled, validate, and run mocked tests only. A human must review an
@@ -47,9 +47,9 @@ contain sensitive infrastructure metadata; never commit live backend files, plan
 
 `enable_cloudfront` defaults to `false`. A future, approved phase-one apply creates the buckets and
 ACM requests but no public distribution. Copy the `acm_dns_validation_records` output into GoDaddy
-DNS and wait until both certificates show `ISSUED`. A second reviewed plan may then set
-`enable_cloudfront = true` and create both distributions. Finally, point the two public subdomains
-at the corresponding `cloudfront` output names.
+DNS and wait until the certificate shows `ISSUED`. A second reviewed plan may then set
+`enable_cloudfront = true` and create the distribution. Finally, point the public subdomain at the
+`cloudfront` output name.
 
 This sequencing avoids asking CloudFront to attach a pending certificate. The repository does not
 create `aws_acm_certificate_validation` because GoDaddy remains authoritative and Terraform cannot
@@ -58,7 +58,7 @@ prove those external records exist.
 ## Security and cost choices
 
 - Origins are private, encrypted, versioned, and reachable only through Origin Access Control.
-- Both distributions redirect HTTP to HTTPS and require TLS 1.2 or newer at the viewer boundary.
+- The distribution redirects HTTP to HTTPS and requires TLS 1.2 or newer at the viewer boundary.
 - A response-header policy supplies CSP, HSTS, clickjacking, MIME-sniffing, referrer, and
   permissions controls. Re-test the CSP against every static build before deployment.
 - Documents cache briefly; generated asset paths cache for one year. Upload tooling must give only
@@ -75,9 +75,9 @@ prove those external records exist.
 ## OIDC boundary
 
 The role trusts only `repo:OWNER/REPOSITORY:environment:ENVIRONMENT`, not a branch wildcard. Its
-inline policy can list the two content buckets, manage objects within them, and (after distributions
-exist) invalidate only those distributions. It cannot change infrastructure, certificates, logs,
-IAM, or DNS. The GitHub Environment must have required reviewers.
+inline policy can list the content bucket, manage objects within it, and (after the distribution
+exists) invalidate only that distribution. It cannot change infrastructure, certificates, logs, IAM,
+or DNS. The GitHub Environment must have required reviewers.
 
 The GitHub OIDC provider is account-wide. If one already exists, set
 `create_github_oidc_provider = false` and provide its ARN. Re-verify the checked-in certificate

@@ -1,6 +1,8 @@
 # ADR 0002: Static editorial site and review gate
 
-- Status: accepted
+- Status: superseded on 2026-11-12. The digest moved to the brentstees.com repository, and
+  `apps/digest`, `packages/editorial` and the weekly draft workflow were removed from nuk. This
+  record is kept for history.
 - Date: 2026-11-01
 
 ## Context

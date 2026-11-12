@@ -31,9 +31,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static subjects
-        run: |
-          pnpm storybook:build
-          pnpm digest:build
+        run: pnpm storybook:build
 
       - name: Generate the CycloneDX SBOM
         run: pnpm sbom:generate
@@ -44,8 +42,6 @@ jobs:
           mkdir -p artifacts
           tar --sort=name --mtime='UTC 1970-01-01' --owner=0 --group=0 --numeric-owner \
             -czf artifacts/storybook-static.tar.gz -C apps/storybook storybook-static
-          tar --sort=name --mtime='UTC 1970-01-01' --owner=0 --group=0 --numeric-owner \
-            -czf artifacts/digest-static.tar.gz -C apps/digest dist
           sha256sum artifacts/*.tar.gz outputs/sbom.cdx.json | sort -k2 > artifacts/SHA256SUMS
 
       - name: Record an in-toto provenance statement

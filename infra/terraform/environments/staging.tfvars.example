@@ -1,7 +1,6 @@
 environment        = "staging"
 aws_region         = "us-east-2"
 docs_domain_name   = "components-staging.example.com"
-digest_domain_name = "digest-staging.example.com"
 github_repository  = "OWNER/REPOSITORY"
 github_environment = "staging"
 

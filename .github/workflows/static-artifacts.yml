@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build:
-    name: Build Storybook and digest without publishing
+    name: Build Storybook without publishing
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
@@ -32,23 +32,11 @@ jobs:
       - name: Build Storybook
         run: pnpm storybook:build
 
-      - name: Build the approved digest
-        run: pnpm digest:build
-
       - name: Upload Storybook for review
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: storybook-static-${{ github.sha }}
           path: apps/storybook/storybook-static
-          if-no-files-found: error
-          include-hidden-files: true
-          retention-days: 14
-
-      - name: Upload digest for review
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: digest-static-${{ github.sha }}
-          path: apps/digest/dist
           if-no-files-found: error
           include-hidden-files: true
           retention-days: 14

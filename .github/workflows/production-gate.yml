@@ -62,10 +62,9 @@ jobs:
       - name: Re-run the complete quality gate
         run: pnpm check
 
-      - name: Build candidate sites and SBOM
+      - name: Build the candidate site and SBOM
         run: |
           pnpm storybook:build
-          pnpm digest:build
           pnpm sbom:generate
 
       - name: Create the explicit no-deployment manifest
@@ -74,9 +73,7 @@ jobs:
           node <<'NODE'
           const { cpSync, mkdirSync, writeFileSync } = require('node:fs');
           mkdirSync('production-candidate/storybook', { recursive: true });
-          mkdirSync('production-candidate/digest', { recursive: true });
           cpSync('apps/storybook/storybook-static', 'production-candidate/storybook', { recursive: true });
-          cpSync('apps/digest/dist', 'production-candidate/digest', { recursive: true });
           cpSync('outputs/sbom.cdx.json', 'production-candidate/sbom.cdx.json');
           writeFileSync('production-candidate/deployment-plan.json', `${JSON.stringify({
             schemaVersion: 1,

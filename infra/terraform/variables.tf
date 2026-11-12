@@ -40,23 +40,8 @@ variable "docs_domain_name" {
   }
 }
 
-variable "digest_domain_name" {
-  description = "Fully qualified subdomain for the editorial digest site."
-  type        = string
-
-  validation {
-    condition     = length(var.digest_domain_name) <= 253 && can(regex("^([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$", var.digest_domain_name))
-    error_message = "digest_domain_name must be a lowercase fully qualified DNS name such as digest.example.com."
-  }
-
-  validation {
-    condition     = var.digest_domain_name != var.docs_domain_name
-    error_message = "digest_domain_name and docs_domain_name must be different."
-  }
-}
-
 variable "enable_cloudfront" {
-  description = "Create both distributions only after both ACM certificates are ISSUED. Keep false for the certificate/DNS bootstrap phase."
+  description = "Create the distribution only after the ACM certificate is ISSUED. Keep false for the certificate/DNS bootstrap phase."
   type        = bool
   default     = false
 }

@@ -24,20 +24,14 @@ run "secure_bootstrap_phase" {
   command = plan
 
   variables {
-    environment        = "production"
-    docs_domain_name   = "components.example.com"
-    digest_domain_name = "digest.example.com"
-    github_repository  = "owner/repository"
+    environment       = "production"
+    docs_domain_name  = "components.example.com"
+    github_repository = "owner/repository"
   }
 
   assert {
-    condition     = !output.cloudfront["docs"].enabled && !output.cloudfront["digest"].enabled
+    condition     = !output.cloudfront["docs"].enabled
     error_message = "CloudFront must remain disabled during the default certificate bootstrap phase."
-  }
-
-  assert {
-    condition     = output.content_buckets["docs"] != output.content_buckets["digest"]
-    error_message = "Documentation and digest content must use separate origins."
   }
 
   assert {
@@ -51,32 +45,18 @@ run "secure_bootstrap_phase" {
   }
 }
 
-run "reject_duplicate_domains" {
+run "distribution_phase" {
   command = plan
 
   variables {
-    environment        = "staging"
-    docs_domain_name   = "same.example.com"
-    digest_domain_name = "same.example.com"
-    github_repository  = "owner/repository"
-  }
-
-  expect_failures = [var.digest_domain_name]
-}
-
-run "separate_distribution_phase" {
-  command = plan
-
-  variables {
-    environment        = "production"
-    docs_domain_name   = "components.example.com"
-    digest_domain_name = "digest.example.com"
-    enable_cloudfront  = true
-    github_repository  = "owner/repository"
+    environment       = "production"
+    docs_domain_name  = "components.example.com"
+    enable_cloudfront = true
+    github_repository = "owner/repository"
   }
 
   assert {
-    condition     = output.cloudfront["docs"].enabled && output.cloudfront["digest"].enabled
-    error_message = "Enabling CloudFront must plan a distribution for both independently built sites."
+    condition     = output.cloudfront["docs"].enabled
+    error_message = "Enabling CloudFront must plan a distribution for the documentation site."
   }
 }

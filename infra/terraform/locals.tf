@@ -14,10 +14,5 @@ locals {
       error_path  = "/index.html"
       asset_paths = ["/assets/*", "/sb-addons/*"]
     }
-    digest = {
-      domain_name = var.digest_domain_name
-      error_path  = "/404.html"
-      asset_paths = ["/_astro/*", "/assets/*"]
-    }
   }
 }

@@ -31,14 +31,5 @@ export default defineConfig({
       timeout: 120_000,
       url: 'http://127.0.0.1:6006',
     },
-    {
-      command:
-        'pnpm digest:build && pnpm --filter @nuk-ui/digest exec vite preview --host 127.0.0.1 --port 4321 --strictPort --outDir dist',
-      reuseExistingServer: !ci,
-      stderr: 'pipe',
-      stdout: 'pipe',
-      timeout: 120_000,
-      url: 'http://127.0.0.1:4321',
-    },
   ],
 });

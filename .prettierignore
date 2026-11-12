@@ -5,3 +5,5 @@ storybook-static
 playwright-report
 pnpm-lock.yaml
 packages/forge/fixtures/reference-docs
+# Agent skills are synced verbatim from another repository.
+.agents/

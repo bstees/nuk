@@ -42,13 +42,11 @@ references that are not full SHAs.
 ## Workflow permissions and untrusted input
 
 Workflow-level permissions default to the minimum each job needs. Ordinary checks and artifact
-builds have only `contents: read`. CodeQL alone receives `security-events: write`. The weekly digest
-job receives repository and pull-request write access solely to push its generated branch and open a
-draft PR. No workflow uses `pull_request_target` or executes pull-request code with write tokens.
+builds have only `contents: read`. CodeQL alone receives `security-events: write`. No workflow uses
+`pull_request_target` or executes pull-request code with write tokens.
 
-Feed entries, issue metadata, branch names, workflow inputs, and generated specifications are
-untrusted data. They must not be interpolated into shell commands without fixed boundaries. Weekly
-automation stages only the generated issue directory and never changes approval state.
+Issue metadata, branch names, workflow inputs, and generated specifications are untrusted data. They
+must not be interpolated into shell commands without fixed boundaries.
 
 ## SBOM and provenance evidence
 

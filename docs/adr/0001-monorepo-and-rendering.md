@@ -14,8 +14,8 @@ Use pnpm workspaces and standards-based autonomous custom elements prefixed `nuk
 single registry factory validates and applies a different consumer prefix without forking behavior.
 Interactive elements render or coordinate native controls; display/layout elements enhance semantic
 light DOM. React adapters provide typed props and event translation but do not own a second
-implementation. Tokens and themes are separate packages. Astro builds the editorial site; Storybook
-documents the same packages used by consumers.
+implementation. Tokens and themes are separate packages. Storybook documents the same packages used
+by consumers.
 
 ## Consequences
 

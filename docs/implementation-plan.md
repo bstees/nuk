@@ -8,9 +8,9 @@
 ## Objective
 
 Deliver a locally reviewable, production-oriented first version of a semantic component system, its
-documentation and editorial applications, and the guarded workflows needed to extend and host them.
-No task in this plan publishes, deploys, applies Terraform, buys a service, or requires a
-credential.
+documentation application, and the guarded workflows needed to extend and host it. (The editorial
+digest built under this plan moved to the brentstees.com repository on 2026-11-12.) No task in this
+plan publishes, deploys, applies Terraform, buys a service, or requires a credential.
 
 ## Decisions fixed for v1
 
@@ -26,14 +26,13 @@ credential.
 - **CSS:** structural CSS travels with elements; optional design tokens and visual themes are
   separate packages. Components use cascade layers, logical properties, intrinsic sizing, container
   queries, `:has()`, forced-colors rules, and progressive enhancement.
-- **Documentation:** Storybook is a local/static build artifact. The digest uses Astro static output
-  and no runtime server.
+- **Documentation:** Storybook is a local/static build artifact with no runtime server.
 - **Generation boundary:** public documentation and an approved behavior specification may enter the
   clean-room process; third-party implementation source may not. Generated candidates cannot become
   package source without an explicit human approval record.
-- **Cloud target:** review-only AWS S3 + CloudFront + ACM with separate distributions for docs and
-  digest, GitHub OIDC for a future deployment role, and GoDaddy retaining registrar/DNS authority
-  unless the owner deliberately delegates validation records.
+- **Cloud target:** review-only AWS S3 + CloudFront + ACM for the docs site, GitHub OIDC for a
+  future deployment role, and GoDaddy retaining registrar/DNS authority unless the owner
+  deliberately delegates validation records.
 
 ## Work streams and exit criteria
 
@@ -49,16 +48,12 @@ credential.
 Exit: package builds and type checks pass; unit and accessibility tests cover state and keyboard
 behavior; package tarballs expose only intentional files.
 
-### 2. Documentation and editorial surfaces
+### 2. Documentation surface
 
 - Storybook autodocs, controls, themes, accessibility addon, interaction stories, width harnesses,
   token documentation, and contribution guidance.
-- Static digest with home, archive, issue, topic, sources, and methodology views; canonical/social
-  metadata, RSS, and sitemap.
-- Curated source manifest, offline fixtures, deterministic deduplication, citation/quotation checks,
-  and review-only issue generation.
 
-Exit: both static builds succeed and are visually/keyboard inspected locally in light, dark, narrow,
+Exit: the static build succeeds and is visually/keyboard inspected locally in light, dark, narrow,
 and wide contexts.
 
 ### 3. Clean-room Forge proof
@@ -73,9 +68,9 @@ promotion attempt without human approval fails closed.
 
 ### 4. Delivery and infrastructure
 
-- Pull-request, main, release, weekly-draft, CodeQL, dependency-review, browser/accessibility,
-  artifact, provenance, and manually gated deployment workflows.
-- Review-only Terraform for two static sites, HTTPS, headers, cache policy, access logs, budget
+- Pull-request, main, release, CodeQL, dependency-review, browser/accessibility, artifact,
+  provenance, and manually gated deployment workflows.
+- Review-only Terraform for the static docs site, HTTPS, headers, cache policy, access logs, budget
   notifications, environment separation, backend bootstrap guidance, OIDC, validated variables, and
   outputs.
 
@@ -84,16 +79,15 @@ formats and validates without applying, and no workflow can publish a generated 
 
 ## Verification matrix
 
-| Concern            | Automated evidence                                     | Human evidence                        |
-| ------------------ | ------------------------------------------------------ | ------------------------------------- |
-| Semantics          | DOM/unit tests, axe, HTML assertions                   | Accessibility checklist               |
-| Interaction        | Vitest and Storybook play functions                    | Keyboard and screen-reader spot check |
-| Reflow/theme       | Playwright container-width checks                      | Narrow/wide light/dark review         |
-| API quality        | strict type check, publint, package tarballs           | Changeset/API review                  |
-| Supply chain       | lockfile, dependency review, CodeQL, SBOM              | provenance/license review             |
-| Generated code     | AST policy, conformance tests, approval gate           | mandatory source review               |
-| Editorial accuracy | citations, dates, quote budget, deterministic fixtures | Brent edits/approves draft PR         |
-| Infrastructure     | format/validate/test without apply                     | cost, DNS, and production approval    |
+| Concern        | Automated evidence                           | Human evidence                        |
+| -------------- | -------------------------------------------- | ------------------------------------- |
+| Semantics      | DOM/unit tests, axe, HTML assertions         | Accessibility checklist               |
+| Interaction    | Vitest and Storybook play functions          | Keyboard and screen-reader spot check |
+| Reflow/theme   | Playwright container-width checks            | Narrow/wide light/dark review         |
+| API quality    | strict type check, publint, package tarballs | Changeset/API review                  |
+| Supply chain   | lockfile, dependency review, CodeQL, SBOM    | provenance/license review             |
+| Generated code | AST policy, conformance tests, approval gate | mandatory source review               |
+| Infrastructure | format/validate/test without apply           | cost, DNS, and production approval    |
 
 ## Explicitly deferred
 

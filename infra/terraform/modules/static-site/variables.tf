@@ -54,6 +54,6 @@ variable "error_document_path" {
 }
 
 variable "content_security_policy" {
-  description = "CSP attached by CloudFront. Keep compatible with both generated static applications."
+  description = "CSP attached by CloudFront. Keep compatible with the generated static application."
   type        = string
 }

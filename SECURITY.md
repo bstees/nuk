@@ -15,6 +15,5 @@ release notes.
 ## Scope and limitations
 
 Static analysis, dependency review, CodeQL, provenance, and an SBOM reduce risk but cannot prove
-software safe. Generated code and editorial content cross an untrusted boundary and require human
-review. Never paste secrets, private source, or restricted-license implementation code into a
-generation request.
+software safe. Generated code crosses an untrusted boundary and requires human review. Never paste
+secrets, private source, or restricted-license implementation code into a generation request.

@@ -59,8 +59,3 @@ jobs:
 
       - name: Run the clean-room proof
         run: pnpm forge:proof
-
-      - name: Exercise the deterministic editorial fixture
-        run: |
-          mkdir -p apps/digest/src/content/issues/generated
-          pnpm digest:fixture

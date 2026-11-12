@@ -29,7 +29,6 @@ pinned lockfile resolution, and an updated third-party notice when attribution i
 ## Generated work
 
 Forge output stays a candidate until a human changes its approval record and runs the explicit
-promotion command. Editorial output stays a draft pull request until Brent edits or approves it.
-Passing automation is evidence for review, not a substitute for review.
+promotion command. Passing automation is evidence for review, not a substitute for review.
 
 Please report security concerns privately as described in `SECURITY.md`.
