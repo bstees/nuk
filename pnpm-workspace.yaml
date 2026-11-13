@@ -6,5 +6,7 @@ packages:
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
+  # Wrangler's local runtime; not needed to deploy, so its install script stays blocked.
+  workerd: false
 
 minimumReleaseAge: 1440
