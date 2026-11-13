@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "pnpm --recursive --if-present build",
-    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm typecheck && pnpm test && pnpm packages:verify",
+    "check": "pnpm format:check && pnpm build && pnpm lint && pnpm typecheck && pnpm test && pnpm packages:verify",
     "clean": "pnpm --recursive --if-present clean",
     "dev:storybook": "pnpm --filter @nuk-ui/storybook dev",
     "format": "prettier --write .",
