@@ -67,3 +67,50 @@ native HTML. Flag specialized domain components separately from broadly useful p
 - Treating popularity as proof of usability, accessibility, or fit for nuk.
 - Fabricating adoption data or making security/accessibility guarantees from documentation review.
 - Changing the v0.1 catalog before the current owner review is complete.
+
+## Gaps found by brentstees.com
+
+brentstees.com is nuk's first consumer (Astro, vanilla CSS, no framework). Its digest adopted
+`nuk-nav` and `nuk-breadcrumbs` on 2026-11-12. Each item below was found doing that and names the
+site as its source. Inventory: [`docs/consumers/brentstees-com.md`](consumers/brentstees-com.md).
+
+### NUK-002: Render without JavaScript
+
+- **Source:** brentstees.com digest. **Priority:** high.
+- Shadow roots are attached by script, so a static page has no `nav` landmark, breadcrumb label or
+  `nuk-link` anchor until the bundle runs. The site keeps working only because its links are light
+  DOM. Explore declarative shadow DOM output (an SSR helper per element) and document which elements
+  degrade safely.
+
+### NUK-003: Register only the elements a page uses
+
+- **Source:** brentstees.com digest. **Priority:** normal.
+- `defineElements()` registers all 25. The site imports two constructors and calls
+  `customElements.define` itself to keep its bundle small, which loses the prefix registry. Add
+  `defineElements({ only: ['nav', 'breadcrumbs'] })`.
+
+### NUK-004: Text-safe accent token
+
+- **Source:** brentstees.com brand (lime `#d8ff3e` fill, dark-green text in light mode).
+- **Status:** done in `f42f7d6` as `--nuk-color-accent-text`. Audit tabs and checkbox for the same
+  fill-versus-text split.
+
+### NUK-005: Theme follows a consumer's own theme switch
+
+- **Source:** brentstees.com (`data-theme` and `light-dark()`). **Priority:** normal.
+- `@nuk-ui/theme` keys off `data-nuk-theme`, so the site skips it and maps tokens itself. Document
+  that bridge as the supported path, or let the theme accept a selector or rely on `color-scheme`
+  and `light-dark()` so one switch drives both.
+
+### NUK-006: Fluid type and brand fonts in tokens
+
+- **Source:** brentstees.com. **Priority:** low.
+- The font-size scale is fixed rem. The site overrides it with `clamp()` steps, which works, but
+  there is no step between `xl` and `2xl` for its display sizes. Consider a fluid scale.
+
+### NUK-007: Candidate elements from the site
+
+- **Source:** brentstees.com inventory. Feed into NUK-001 rather than build directly.
+- Segmented control (radio group styled as pills; the site's theme and lens switches), skip link,
+  tag/chip list, previous/next pager, numbered scroll-spy table of contents, and a prose container
+  for long-form Markdown.
