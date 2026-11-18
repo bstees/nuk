@@ -5,7 +5,7 @@ addons.setConfig({
   theme: create({
     base: 'light',
     brandTarget: '_self',
-    brandTitle: 'nuk · component system',
+    brandTitle: 'nuk · Brent Stees',
     brandUrl: '/',
     colorPrimary: '#1769aa',
     colorSecondary: '#0d568f',
