@@ -35,5 +35,7 @@ test('welcome connects the interactive reference to its owner, source, and limit
     'href',
     'https://github.com/bstees/nuk/actions',
   );
-  await expect(page.getByText(/Manual screen-reader validation remains outstanding/)).toBeVisible();
+  await expect(
+    page.getByText(/Manual screen-reader validation\s+remains outstanding/),
+  ).toBeVisible();
 });
