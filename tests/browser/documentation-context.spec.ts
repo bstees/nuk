@@ -17,7 +17,8 @@ test('welcome connects the interactive reference to its owner, source, and limit
   page,
 }) => {
   await page.goto(`${storybook}/iframe.html?viewMode=docs&id=welcome-start-here--docs`);
-  await expect(page.getByRole('heading', { name: 'nuk', exact: true })).toBeVisible();
+  // Storybook includes its copy-heading permalink in the heading's accessible name.
+  await expect(page.getByRole('heading', { level: 1, name: /\bnuk$/ })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Brent Stees', exact: true })).toHaveAttribute(
     'href',
     'https://brentstees.com',
